@@ -31,21 +31,10 @@ clearBtn.addEventListener('click', ()=>{
 operationsBtn.forEach((operationBtn)=>{
     operationBtn.addEventListener('click', ()=>{
         let operator = operationBtn.textContent;
-        //console.log(operator);
+
         if(currentOperandDisplay.textContent===''){
             return;
-        } else if (currentOperandDisplay.textContent!=='' && previousOperandDisplay.textContent!==''){
-            const currentDisplay = currentOperandDisplay.textContent;
-            const previousDisplay = previousOperandDisplay.textContent;
-            const previousNum = Number.parseInt(previousDisplay.slice(0,previousDisplay.length-2),10);
-            const currentNum = Number.parseInt(currentOperandDisplay.textContent,10);
-
-            switch(operator){
-
-            }
-        }
-
-
+        } 
         previousOperandDisplay.textContent = `${currentOperandDisplay.textContent} ${operationBtn.textContent}`;
         currentOperandDisplay.textContent = '';
 
@@ -56,31 +45,34 @@ operationsBtn.forEach((operationBtn)=>{
 equalsBtn.addEventListener('click', ()=>{
     const currentDisplay = currentOperandDisplay.textContent;
     const previousDisplay = previousOperandDisplay.textContent;
-    const previousNum = Number.parseInt(previousDisplay.slice(0,previousDisplay.length-2),10);
-    const currentNum = Number.parseInt(currentOperandDisplay.textContent,10);
-    const operation = previousDisplay.slice(previousDisplay.length-1,previousDisplay.length);
+    const previousNum = Number(previousDisplay.slice(0,previousDisplay.length-2));
+    const currentNum = Number(currentDisplay);
+    const operatior = previousDisplay.slice(previousDisplay.length-1,previousDisplay.length);
+    //console.log(`previous number: ${typeof previousNum}, current number: ${typeof currentNum}`);
+    // console.log(`current display: ${currentDisplay}`);
+    // console.log(`previous display: ${previousDisplay}`);
 
     function clear(){
         previousOperandDisplay.textContent = '';
         currentOperandDisplay.textContent = '';
     };
 
-    switch(operation){
+    switch(operatior){
         case "+":
             clear();
-            currentOperandDisplay.textContent = (previousNum + currentNum).toLocaleString('en-US');
+            currentOperandDisplay.textContent = (previousNum + currentNum);
             break;
         case "-":
             clear();
-            currentOperandDisplay.textContent = (previousNum - currentNum).toLocaleString('en-US');
+            currentOperandDisplay.textContent = (previousNum - currentNum);
             break;
         case "÷":
             clear();
-            currentOperandDisplay.textContent = (previousNum / currentNum).toLocaleString('en-US');
+            currentOperandDisplay.textContent = (previousNum / currentNum);
             break;
         case "x":
             clear();
-            currentOperandDisplay.textContent = (previousNum * currentNum).toLocaleString('en-US');
+            currentOperandDisplay.textContent = (previousNum * currentNum);
             break;
         default:
             //console.log('error')
@@ -88,6 +80,8 @@ equalsBtn.addEventListener('click', ()=>{
     };
 
 })
+
+
 
 
 
