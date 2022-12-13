@@ -15,7 +15,6 @@ numbersBtn.forEach((numBtn) => {
         } else {
             currentOperandDisplay.textContent += numBtn.innerText;
         }
-
     });
 });
 
@@ -30,34 +29,56 @@ clearBtn.addEventListener('click', ()=>{
 
 operationsBtn.forEach((operationBtn)=>{
     operationBtn.addEventListener('click', ()=>{
-        let operator = operationBtn.textContent;
+        const previousDisplay = previousOperandDisplay.textContent;
+        const currentDisplay = currentOperandDisplay.textContent;
+        const operator = operationBtn.textContent;
 
-        if(currentOperandDisplay.textContent===''){
+        if(currentDisplay===''){
             return;
-        } 
-        previousOperandDisplay.textContent = `${currentOperandDisplay.textContent} ${operationBtn.textContent}`;
-        currentOperandDisplay.textContent = '';
-
-    })
+        } else if(currentDisplay!=='' && previousDisplay!==''){
+            const previousNum = Number(previousDisplay.slice(0,previousDisplay.length-2));
+            const currentNum = Number(currentDisplay);
+            switch(operator){
+                case "+":
+                    previousOperandDisplay.textContent = `${previousNum+currentNum} ${operator}`;
+                    currentOperandDisplay.textContent = '';
+                    break;
+                case "-":
+                    result = previousNum-currentNum;
+                    previousOperandDisplay.textContent = `${previousNum-currentNum} ${operator}`;
+                    currentOperandDisplay.textContent = '';
+                    break;
+                case "÷":
+                    previousOperandDisplay.textContent = `${previousNum/currentNum} ${operator}`;
+                    currentOperandDisplay.textContent = '';
+                    break;
+                case "x":
+                    previousOperandDisplay.textContent = `${previousNum*currentNum} ${operator}`;
+                    currentOperandDisplay.textContent = '';
+                    break;
+                default:
+                    return;
+            };
+        }else {
+            previousOperandDisplay.textContent =`${currentDisplay} ${operator}`;
+            currentOperandDisplay.textContent = '';
+        }
+    });
 })
-
 
 equalsBtn.addEventListener('click', ()=>{
     const currentDisplay = currentOperandDisplay.textContent;
     const previousDisplay = previousOperandDisplay.textContent;
     const previousNum = Number(previousDisplay.slice(0,previousDisplay.length-2));
     const currentNum = Number(currentDisplay);
-    const operatior = previousDisplay.slice(previousDisplay.length-1,previousDisplay.length);
-    //console.log(`previous number: ${typeof previousNum}, current number: ${typeof currentNum}`);
-    // console.log(`current display: ${currentDisplay}`);
-    // console.log(`previous display: ${previousDisplay}`);
+    const operator = previousDisplay.slice(previousDisplay.length-1,previousDisplay.length);
 
     function clear(){
         previousOperandDisplay.textContent = '';
         currentOperandDisplay.textContent = '';
     };
 
-    switch(operatior){
+    switch(operator){
         case "+":
             clear();
             currentOperandDisplay.textContent = (previousNum + currentNum);
@@ -75,11 +96,12 @@ equalsBtn.addEventListener('click', ()=>{
             currentOperandDisplay.textContent = (previousNum * currentNum);
             break;
         default:
-            //console.log('error')
             return;
     };
 
 })
+
+
 
 
 
