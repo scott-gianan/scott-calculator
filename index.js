@@ -36,29 +36,7 @@ operationsBtn.forEach((operationBtn)=>{
         if(currentDisplay===''){
             return;
         } else if(currentDisplay!=='' && previousDisplay!==''){
-            const previousNum = Number(previousDisplay.slice(0,previousDisplay.length-2));
-            const currentNum = Number(currentDisplay);
-            switch(operator){
-                case "+":
-                    previousOperandDisplay.textContent = `${previousNum+currentNum} ${operator}`;
-                    currentOperandDisplay.textContent = '';
-                    break;
-                case "-":
-                    result = previousNum-currentNum;
-                    previousOperandDisplay.textContent = `${previousNum-currentNum} ${operator}`;
-                    currentOperandDisplay.textContent = '';
-                    break;
-                case "÷":
-                    previousOperandDisplay.textContent = `${previousNum/currentNum} ${operator}`;
-                    currentOperandDisplay.textContent = '';
-                    break;
-                case "x":
-                    previousOperandDisplay.textContent = `${previousNum*currentNum} ${operator}`;
-                    currentOperandDisplay.textContent = '';
-                    break;
-                default:
-                    return;
-            };
+            previousOperandDisplay.textContent = calculate() + ` ${operator}`;
         }else {
             previousOperandDisplay.textContent =`${currentDisplay} ${operator}`;
             currentOperandDisplay.textContent = '';
@@ -101,6 +79,42 @@ equalsBtn.addEventListener('click', ()=>{
 
 })
 
+function calculate(){
+    const currentDisplay = currentOperandDisplay.textContent;
+    const previousDisplay = previousOperandDisplay.textContent;
+    const previousNum = Number(previousDisplay.slice(0,previousDisplay.length-2));
+    const currentNum = Number(currentDisplay);
+    const operator = previousDisplay.slice(previousDisplay.length-1,previousDisplay.length);
+    let result = 0;
+
+    function clear(){
+        previousOperandDisplay.textContent = '';
+        currentOperandDisplay.textContent = '';
+    };
+
+    switch(operator){
+        case "+":
+            clear();
+            result = (previousNum + currentNum);
+            break;
+        case "-":
+            clear();
+            result = (previousNum - currentNum);
+            break;
+        case "÷":
+            clear();
+            result = (previousNum / currentNum);
+            break;
+        case "x":
+            clear();
+            result = (previousNum * currentNum);
+            break;
+        default:
+            return;
+    };
+
+    return result;
+}
 
 
 
