@@ -79,6 +79,7 @@ equalsBtn.addEventListener('click', ()=>{
 
 })
 
+//This function is for continuos calculation for when the user didn't click the equals btn but rather another operator.
 function calculate(){
     const currentDisplay = currentOperandDisplay.textContent;
     const previousDisplay = previousOperandDisplay.textContent;
@@ -115,7 +116,6 @@ function calculate(){
 
     return result;
 }
-
 
 
 
