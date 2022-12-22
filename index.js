@@ -9,12 +9,15 @@ const previousOperandDisplay = document.querySelector('[data-previous-operand]')
 const currentOperandDisplay = document.querySelector('[data-current-operand]');
 
 numbersBtn.forEach((numBtn) => {
-    numBtn.addEventListener('click', (event)=>{
-        if(currentOperandDisplay.textContent==='' && numBtn.innerText==='0'){
+    numBtn.addEventListener('click', ()=>{
+        if (numBtn.textContent === '.' && currentOperandDisplay.textContent.includes('.')){
             return;
-        } else {
-            currentOperandDisplay.textContent += numBtn.innerText;
+        } else if (currentOperandDisplay.textContent.includes('0') && currentOperandDisplay.textContent.length===1){
+            if(numBtn.textContent==='0'){
+                return;
+            }
         }
+        currentOperandDisplay.textContent += numBtn.innerText;
     });
 });
 
@@ -116,12 +119,3 @@ function calculate(){
 
     return result;
 }
-
-
-
-
-
-
-
-
-
