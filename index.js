@@ -79,6 +79,7 @@ equalsBtn.addEventListener('click', ()=>{
         default:
             return;
     };
+    updateDisplay();
 
 })
 
@@ -116,6 +117,14 @@ function calculate(){
         default:
             return;
     };
-
+    updateDisplay();
     return result;
 }
+
+function updateDisplay(){
+    let currentDisplayedNumber = Number(currentOperandDisplay.textContent);
+    if (currentOperandDisplay.textContent.includes('.')){
+        currentOperandDisplay.textContent = currentDisplayedNumber.toFixed(2);
+    }
+}
+updateDisplay();
